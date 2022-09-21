@@ -2,7 +2,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-from .layer_utils import calc_mlp_dims, create_act, glorot, zeros, MLP
+from layer_utils import calc_mlp_dims, create_act, glorot, zeros, MLP
 
 
 class TabularFeatCombiner(nn.Module):
@@ -184,7 +184,8 @@ class TabularFeatCombiner(nn.Module):
                         self.numerical_feat_dim,
                         division=self.mlp_division,
                         output_dim=output_dim_num)
-                    self.cat_mlp = MLP(
+                    #self.cat_mlp
+                    self.num_mlp = MLP(
                         self.numerical_feat_dim,
                         output_dim_num,
                         num_hidden_lyr=len(dims),
@@ -313,7 +314,7 @@ class TabularFeatCombiner(nn.Module):
                 if self.numerical_feat_dim > self.text_out_dim:
                     numerical_feats = self.num_mlp(numerical_feats)
                 w_num = torch.mm(numerical_feats, self.weight_num)
-                g_num = (torch.cat([w_text, w_cat], dim=-1) * self.weight_a).sum(dim=1).unsqueeze(0).T
+                g_num = (torch.cat([w_text, w_num], dim=-1) * self.weight_a).sum(dim=1).unsqueeze(0).T
             else:
                 w_num = None
                 g_num = torch.zeros(0, device=g_text.device)
