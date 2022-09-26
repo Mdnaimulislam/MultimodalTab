@@ -4,7 +4,7 @@ from transformers.configuration_utils import PretrainedConfig
 from transformers import AutoConfig
 from transformers import BertConfig
 
-from tabular_transformers import (
+from MultimodalTab.tabular_transformers import (
     BertWithTabular
 )
 

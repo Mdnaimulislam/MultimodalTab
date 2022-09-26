@@ -4,8 +4,8 @@ from transformers import (
 )
 from transformers.modeling_bert import BERT_INPUTS_DOCSTRING
 from transformers.file_utils import add_start_docstrings_to_callable
-from tabular_combiner import TabularFeatCombiner
-from layer_utils import MLP, calc_mlp_dims, hf_loss_func
+from MultimodalTab.tabular_combiner import TabularFeatCombiner
+from MultimodalTab.layer_utils import MLP, calc_mlp_dims, hf_loss_func
 
 class TabularConfig:
     def __init__(self,
